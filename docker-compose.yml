@@ -1,0 +1,19 @@
+version: '3'
+services:
+  site:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./:/var/www/html/site
+    depends_on:
+      - db
+    ports:
+      - 80:80
+
+  db:
+    image: mariadb
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: dmoj
+  
