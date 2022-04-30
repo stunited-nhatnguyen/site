@@ -9,7 +9,7 @@ django-sortedm2m @ git+https://github.com/DMOJ/django-sortedm2m.git
 django-impersonate
 dmoj-wpadmin @ git+https://github.com/DMOJ/dmoj-wpadmin.git
 lxml
-Pygments
+Pygments==2.10.0
 mistune<2
 social-auth-app-django
 pytz

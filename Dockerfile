@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:20.04
 WORKDIR /var/www/html/
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -11,8 +11,11 @@ RUN apt -y  install nodejs
 RUN apt -y install mariadb-server libmysqlclient-dev
 RUN npm install -g sass postcss-cli postcss autoprefixer
 RUN apt -y install python3-venv
-RUN python3 -m venv dmojsite
-COPY . ./site
+RUN apt -y install build-essential libseccomp-dev
+RUN pip3 install dmoj
+RUN useradd dmoj
+RUN apt -y install software-properties-common
+COPY . .
 COPY ./docker/nginx/default.conf /etc/nginx/sites-available/default.conf
 COPY ./docker/supervisor/site.conf /etc/supervisor/conf.d/site.conf
 COPY ./docker/supervisor/bridged.conf /etc/supervisor/conf.d/bridged.conf
