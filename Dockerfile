@@ -13,10 +13,15 @@ RUN npm install -g sass postcss-cli postcss autoprefixer
 RUN apt -y install python3-venv
 RUN apt -y install build-essential libseccomp-dev
 RUN pip3 install dmoj
-RUN useradd dmoj
 RUN apt -y install software-properties-common
+
+RUN curl https://dmoj.ca/dmoj-apt.key | apt-key add -
+RUN echo "deb [arch=amd64] https://apt.dmoj.ca/ bullseye main non-free" | tee /etc/apt/sources.list
+RUN apt update
+RUN apt install v8dmoj
+RUN useradd dmoj
+
 COPY . .
-COPY ./docker/nginx/default.conf /etc/nginx/sites-available/default.conf
 COPY ./docker/supervisor/site.conf /etc/supervisor/conf.d/site.conf
 COPY ./docker/supervisor/bridged.conf /etc/supervisor/conf.d/bridged.conf
 COPY ./docker/supervisor/celery.conf /etc/supervisor/conf.d/celery.conf
